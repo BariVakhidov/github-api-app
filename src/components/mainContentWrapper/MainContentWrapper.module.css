@@ -1,0 +1,14 @@
+.title {
+    color: #4d4d4d;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 3rem;
+}
+
+.wrapper {
+    background-color: white;
+    outline: none;
+    flex-grow: 1;
+    width: 100%;
+    padding: 60px;
+}

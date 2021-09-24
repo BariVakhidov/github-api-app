@@ -1,0 +1,11 @@
+header {
+    grid-area: header;
+    height: 50px;
+    padding: 0 1rem;
+    width: 100%;
+    background-color: rosybrown;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: flex-end;
+}
