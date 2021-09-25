@@ -1,0 +1,7 @@
+.users {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    justify-items: flex-start;
+    padding: 1rem 0;
+}
