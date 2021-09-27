@@ -1,4 +1,4 @@
-export interface User {
+export interface SearchUserInfo {
   avatar_url: string;
   events_url: string;
   followers_url: string;
@@ -23,10 +23,11 @@ export interface User {
 export interface SearchUsersResponse {
     total_count: number;
     incomplete_results: boolean;
-    items: User[];
+    items: SearchUserInfo[];
 }
 
 export interface SearchUsersRequest {
     q: string;
     page: number;
+    per_page: number;
 }

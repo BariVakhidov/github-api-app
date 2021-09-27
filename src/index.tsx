@@ -3,11 +3,11 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import 'antd/dist/antd.css';
 import reportWebVitals from "./reportWebVitals";
-import {AppWrapper} from "app/AppWrapper";
+import { AppWrapper } from "app/AppWrapper";
 
 ReactDOM.render(
     <React.StrictMode>
-        <AppWrapper/>
+        <AppWrapper />
     </React.StrictMode>,
     document.getElementById("root")
 );

@@ -5,7 +5,7 @@ export enum Routes {
     PROFILE = '/profile',
 }
 
-export const routesArr:Route[] = [
+export const routesArr: Route[] = [
     {
         path: Routes.USERS,
         component: Users
