@@ -1,23 +1,27 @@
 import React, { FC } from 'react'
-import { Card, Pagination } from "antd";
+import { Card } from "antd";
 import { SearchUserInfo } from 'client/SearchClient/searchClient-types';
+import { Nullable } from 'types';
 
 const { Meta } = Card;
 
 interface Props {
     user: SearchUserInfo;
-    onUserCLick: (username: string) => void;
+    onUserCLick: (user: SearchUserInfo) => void;
+    selectedUser: Nullable<SearchUserInfo>;
 }
 
-export const UserComponent: FC<Props> = React.memo(({ user, onUserCLick }) => {
+export const UserItem: FC<Props> = React.memo(({ user, onUserCLick, selectedUser }) => {
+    const isSelected = selectedUser?.id === user.id;
     return (
         <Card
-            onClick={() => onUserCLick(user.login)}
+            onClick={() => onUserCLick(user)}
             hoverable
+            bordered={isSelected}
             style={{ width: 240, marginBottom: "1rem" }}
             cover={<img alt="avatar" src={user.avatar_url} />}
         >
-            <Meta title={user.login} description={user.repos_url} />
+            <Meta title={user.login} />
         </Card>
     )
 })

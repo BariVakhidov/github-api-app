@@ -1,41 +1,46 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useEffect, useMemo, useReducer } from "react";
 import styles from "./Users.module.css";
-import { Input } from "antd";
 import { MainContentWrapper } from "components/mainContentWrapper";
 import { Title } from "components/mainContentWrapper/Title";
-import { searchUsersClient } from "client/SearchClient/SearchClient";
-import { SearchUsersRequest, SearchUsersResponse } from "client/SearchClient/searchClient-types";
-import { UsersWrapper } from "./UsersWrapper";
-
-const { Search } = Input;
+import { SearchUserInfo } from "client/SearchClient/searchClient-types";
+import { UsersList } from "./UsersList";
+import { SearchWrapper } from "./SearchWrapper";
+import { Button } from "antd";
+import { Nullable } from "types";
+import { UserDetail } from "./UserDetail";
+import { initialUsersState, UsersActions, usersReducer } from "logic/usersReducer";
+import { UndoOutlined } from "@ant-design/icons";
 
 export const Users: FC = React.memo(() => {
-  const [users, setUsers] = useState<SearchUsersResponse | null>(null);
-  const [isFetching, setFetching] = useState(false);
-  const [filter, setFilter] = useState<SearchUsersRequest>({
-    q: "",
-    page: 1,
-    per_page: 30,
-  });
 
-  const onPageChange = (page: number, pageSize?: number) => setFilter(prev => ({ ...prev, page, per_page: pageSize ? pageSize : prev.per_page }));
-  const onSearch = (value: string) => setFilter(prev => ({ ...prev, q: value }));
-  const searchUsers = async (filter: SearchUsersRequest) => {
-    setFetching(true);
-    const response: any = await searchUsersClient.getUsers(filter);
-    setUsers(response);
-    setTimeout(() => setFetching(false), 500);
-  };
+  const [state, dispatch] = useReducer(usersReducer, initialUsersState)
+  const { filter, isFetching, selectedUser } = state;
+  const title = useMemo(() => document.title, []);
+
+  const onPageChange = (page: number, pageSize?: number) => dispatch({ type: UsersActions.SET_FILTER, payload: { ...filter, page, per_page: pageSize ? pageSize : filter.per_page } });
+  const onSearch = (value: string) => dispatch({ type: UsersActions.SET_FILTER, payload: { ...filter, q: value } });
+  const setFetching = (value: boolean) => dispatch({ type: UsersActions.SET_FETCHING, payload: value });
+  const setSelectedUser = (user: Nullable<SearchUserInfo>) => dispatch({ type: UsersActions.SET_SELECTED_USER, payload: user });
 
   useEffect(() => {
-    if (filter.q) searchUsers(filter)
-  }, [filter]);
+    if (selectedUser) {
+      document.title = selectedUser.login;
+    }
+    return () => {
+      document.title = title
+    }
+  }, [selectedUser])
+
 
   return (
     <MainContentWrapper>
       <Title>USERS</Title>
-      <Search placeholder="input search text" onSearch={onSearch} enterButton />
-      <UsersWrapper onPageChange={onPageChange} filter={filter} users={users} isFetching={isFetching} />
+      <div className={styles.searchWrapper}>
+        <SearchWrapper filter={filter} onSearch={onSearch} />
+        <Button onClick={() => dispatch({ type: UsersActions.RESET_FILTER })}><UndoOutlined /></Button>
+      </div>
+      <UsersList selectedUser={selectedUser} isFetching={isFetching} setFetching={setFetching} setSelectedUser={setSelectedUser} onPageChange={onPageChange} filter={filter} />
+      <UserDetail selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
     </MainContentWrapper>
   );
 });
