@@ -18,7 +18,7 @@ export interface UsersState {
 export const initialUsersState: Readonly<UsersState> = {
     isFetching: false,
     filter: {
-        q: "BariV",
+        q: "Bari",
         page: 1,
         per_page: 30,
     },

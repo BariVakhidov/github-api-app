@@ -1,14 +1,21 @@
-import React, {FC} from "react";
+import React, { FC } from "react";
 import styles from "./Header.module.css";
-import {Button} from "antd";
+import { Spin, Avatar } from 'antd';
+import { Nullable } from "types";
+import { AuthUserInfo } from "client/UsersClient/usersClient-types";
+import { UserInfo } from "./UserInfo";
 
-export const Header: FC = React.memo(() => {
+interface Props {
+    userInfo: Nullable<AuthUserInfo>;
+    isFetching: boolean;
+}
+
+export const Header: FC<Props> = React.memo(({ isFetching, userInfo }) => {
     return (
         <header>
             <div className={styles.user}>
-                USER INFO
+                {isFetching ? <Spin /> : <UserInfo userInfo={userInfo} />}
             </div>
-            <Button>Logout</Button>
         </header>
     );
 });

@@ -1,44 +1,43 @@
 nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    position: relative;
-    grid-area: nav;
-    color: aliceblue;
-    background-color: #062657;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  grid-area: nav;
+  color: aliceblue;
+  background-color: rgb(1, 16, 61);
+  box-shadow: 1px -4px 10px -4px rgba(0, 0, 0, 0.3);
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    list-style: none;
-    padding: 0;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
 }
 
 .item {
-    padding: 0.7rem;
-    margin-bottom: 0.6rem;
-    transition: background-color 100ms ease-in;
+  padding: 0.7rem;
+  transition: background-color 100ms ease-in;
 }
 
-.item:hover {
-    cursor: pointer;
-    background-color: #212e92;
+.item:hover,
+.icon:hover {
+  cursor: pointer;
+  background-color: #212e92;
 }
 
 .icon {
-    width: 100%;
-    height: 50px;
-    text-align: center;
-    transition: all ease-in-out 350ms;
-    font-size: 20px;
-}
-
-.icon:hover {
-    background-color: #212e92;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all ease-in-out 350ms;
+  font-size: 20px;
 }
 
 .active {
-    background-color: #212e92;
+  background-color: #212e92;
 }

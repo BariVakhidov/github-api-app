@@ -34,5 +34,5 @@ main {
     padding: 60px 25px;
     flex-grow: 1;
     grid-area: main;
-    background-color: aliceblue;
+    background-color: rgb(225, 241, 255);
 }
